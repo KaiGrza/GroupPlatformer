@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public static Vector2 TurnCardinal(Vector2 dir)
     {
-        return Mathf.Abs(dir.x) > dir.y? Vector2.right * Mathf.Sign(dir.x): Vector2.up * Mathf.Sign(dir.y);
+        return Mathf.Abs(dir.x) > Mathf.Abs(dir.y) ? Vector2.right * Mathf.Sign(dir.x): Vector2.up * Mathf.Sign(dir.y);
     }
     private void FixedUpdate()
     {
