@@ -14,9 +14,16 @@ public class PlayerMovement : MonoBehaviour
     bool reserveDash;
     public Vector3 bulletTarget;
     float bte = 0f;
+    public GameObject defaultRender;
+    public GameObject DashRender;
+    public ParticleSystem onHitWallEffect;
     void Start()
     {
         
+    }
+    public static float CastInsideRect(Vector3 dir,Rect rect)
+    {
+        return Mathf.Min(Mathf.Abs(dir.normalized.x == 0 ? 100 : rect.size.x * 0.5f / dir.normalized.x), Mathf.Abs(dir.normalized.y == 0 ? 100 : rect.size.y * 0.5f / dir.normalized.y));
     }
     public static Vector2 TurnCardinal(Vector2 dir)
     {
@@ -26,9 +33,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (BulletMode)
         {
-            transform.position += Vector3.ClampMagnitude(bulletTarget - transform.position, Time.deltaTime * 100f);
+            Vector3 dir = Vector3.ClampMagnitude(bulletTarget - transform.position, Time.deltaTime * 100f);
+            transform.position += dir;
             if ((transform.position - bulletTarget).magnitude < 0.2f)
+            {
                 bte += Time.deltaTime;
+                if(DashRender.activeInHierarchy)
+                {
+                    defaultRender.SetActive(true);
+                    DashRender.SetActive(false);
+                    onHitWallEffect.transform.position = bulletTarget;
+                    onHitWallEffect.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+                    onHitWallEffect.Play();
+                }
+            }
             if (bte > .2f)
             {
                 BulletMode = false;
@@ -43,8 +61,7 @@ public class PlayerMovement : MonoBehaviour
         foreach (Collider2D col in Physics2D.OverlapAreaAll(new Vector2(rect.xMin, rect.yMin), new Vector2(rect.xMax, rect.yMax)))
         {
             Vector2 dir = col.ClosestPoint(transform.position) - (Vector2)transform.position;
-            float dist = Mathf.Min(Mathf.Abs(dir.normalized.x == 0 ? 0 : rect.size.x * 0.5f / dir.normalized.x), Mathf.Abs(dir.normalized.y == 0 ? 0 : rect.size.y * 0.5f / dir.normalized.y));
-            transform.position += (Vector3)dir.normalized * Mathf.Min(0, dir.magnitude - dist);
+            transform.position += (Vector3)dir.normalized * Mathf.Min(0, dir.magnitude - CastInsideRect(dir,rect));
 
             if (!ground && Vector2.Dot(dir, Vector2.up) < -.5f)
                 ground = Physics2D.Raycast(transform.position, dir, dir.magnitude + .05f, (1 << 0) +(1 << 6));
@@ -75,14 +92,15 @@ public class PlayerMovement : MonoBehaviour
             velocity *= Mathf.Pow(0.00001f, Time.deltaTime);
             velocity.y = 0;
             reserveDash = true;
-            Debug.DrawLine(ground.point, transform.position, Color.yellow,0.05f);
 
         }
         RaycastHit2D hit;
         if (reserveDash &&Input.GetKeyUp(KeyCode.Space) && moveDir.magnitude != 0 && (hit = Physics2D.Raycast(transform.position, TurnCardinal(moveDir), 100, 1 << 0)))
         {
             BulletMode = true;
-            bulletTarget = hit.point + hit.normal * .5f;
+            defaultRender.SetActive(false);
+            DashRender.SetActive(true);
+            bulletTarget = hit.point + hit.normal * CastInsideRect(hit.normal,rect);
             velocity = Vector2.zero;
             reserveDash = false;
             ground = new RaycastHit2D();
