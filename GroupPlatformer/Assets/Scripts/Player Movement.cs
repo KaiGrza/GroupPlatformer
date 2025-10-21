@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement main;
     public float MoveSpeed;
     public Rect rect;
     public Vector2 velocity;
@@ -17,9 +18,16 @@ public class PlayerMovement : MonoBehaviour
     public GameObject defaultRender;
     public GameObject DashRender;
     public ParticleSystem onHitWallEffect;
-    void Start()
+    public Animator animator;
+    public SpriteRenderer sr;
+    public void OnDrawGizmosSelected()
     {
-        
+        Gizmos.color = new Color(0f,1f,0.3f,0.1f);
+        Gizmos.DrawCube(transform.position, new Vector3(rect.width, rect.height, 1));
+    }
+    private void Awake()
+    {
+        main = this;
     }
     public static float CastInsideRect(Vector3 dir,Rect rect)
     {
@@ -83,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
             velocity += Physics2D.gravity * Time.deltaTime;
             velocity += Vector2.right * moveDir.x * Time.deltaTime * 10f;
             velocity.x*= Mathf.Pow(0.3f, Time.deltaTime);
+            animator.SetFloat("walk", 0);
 
         }
         else
@@ -93,7 +102,9 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = 0;
             reserveDash = true;
 
+            animator.SetFloat("walk", Mathf.Abs(velocity.x));
         }
+        if (moveDir.x != 0) sr.flipX = moveDir.x < 0;
         RaycastHit2D hit;
         if (reserveDash &&Input.GetKeyUp(KeyCode.Space) && moveDir.magnitude != 0 && (hit = Physics2D.Raycast(transform.position, TurnCardinal(moveDir), 100, 1 << 0)))
         {
