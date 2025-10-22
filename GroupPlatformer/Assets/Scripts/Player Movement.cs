@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = new Color(0f,1f,0.3f,0.1f);
         Gizmos.DrawCube(transform.position, new Vector3(rect.width, rect.height, 1));
+        Gizmos.color = new Color(1f, .9f, 0f, 0.1f);
+        Gizmos.DrawSphere(lastGrounded, 0.1f);
     }
     private void Awake()
     {
@@ -115,8 +117,8 @@ public class PlayerMovement : MonoBehaviour
                 reserveDash = true;
 
                 animator.SetFloat("walk", Mathf.Abs(velocity.x));
-                if (respawnAtLastGround)
-                    lastGrounded = transform.position-(Vector3)velocity*.2f;
+                if (respawnAtLastGround&& Physics2D.Raycast(transform.position - Vector3.right * rect.width*.5f, -Vector2.up, rect.height * .5f + .1f, (1 << 0) + (1 << 6)) && Physics2D.Raycast(transform.position + Vector3.right *rect.width * .5f, -Vector2.up, rect.height * .5f + .1f, (1 << 0) + (1 << 6)))
+                    lastGrounded = transform.position;
             }
         }
         if (moveDir.x != 0) sr.flipX = moveDir.x < 0;
