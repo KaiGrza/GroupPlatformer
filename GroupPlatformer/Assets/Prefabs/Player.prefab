@@ -63,6 +63,7 @@ MonoBehaviour:
   onHitWallEffect: {fileID: 1074813751744277725}
   animator: {fileID: 6718810057957448306}
   sr: {fileID: 7798039515017604055}
+  respawnAtLastGround: 1
 --- !u!1 &1213207436249725428
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +339,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: f0da9679c6e48b9478d271c51e15a3d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

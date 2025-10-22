@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     public ParticleSystem onHitWallEffect;
     public Animator animator;
     public SpriteRenderer sr;
+    Vector3 lastGrounded = Vector3.zero;
+    public bool respawnAtLastGround = true;
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0f,1f,0.3f,0.1f);
@@ -28,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         main = this;
+        lastGrounded = transform.position;
     }
     public static float CastInsideRect(Vector3 dir,Rect rect)
     {
@@ -69,7 +72,8 @@ public class PlayerMovement : MonoBehaviour
         foreach (Collider2D col in Physics2D.OverlapAreaAll(new Vector2(rect.xMin, rect.yMin), new Vector2(rect.xMax, rect.yMax)))
         {
             Vector2 dir = col.ClosestPoint(transform.position) - (Vector2)transform.position;
-            transform.position += (Vector3)dir.normalized * Mathf.Min(0, dir.magnitude - CastInsideRect(dir,rect));
+            float dist = dir.magnitude - CastInsideRect(dir, rect);
+            transform.position += (Vector3)dir.normalized * Mathf.Min(0, dist);
 
             if (!ground && Vector2.Dot(dir, Vector2.up) < -.5f)
                 ground = Physics2D.Raycast(transform.position, dir, dir.magnitude + .05f, (1 << 0) +(1 << 6));
@@ -79,6 +83,9 @@ public class PlayerMovement : MonoBehaviour
                 dir = dir * Vector2.Dot(velocity, dir);
                 velocity = dir;// + (dir-velocity)*.1;
             }
+
+            if (dist > 0 && col.gameObject.tag == "Hazard")
+                Respawn();
         }
         transform.position += (Vector3)velocity * Time.deltaTime;
     }
@@ -96,13 +103,21 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if(!Input.GetKey(KeyCode.Space))
-            velocity += Vector2.right * moveDir.x * Time.deltaTime * moveSpeed;
-            velocity *= Mathf.Pow(0.00001f, Time.deltaTime);
-            velocity.y = 0;
-            reserveDash = true;
+            if(ground.collider.gameObject.tag=="Hazard")
+            {
+                Respawn();
+            }else
+            {
+                if (!Input.GetKey(KeyCode.Space))
+                    velocity += Vector2.right * moveDir.x * Time.deltaTime * moveSpeed;
+                velocity *= Mathf.Pow(0.00001f, Time.deltaTime);
+                velocity.y = 0;
+                reserveDash = true;
 
-            animator.SetFloat("walk", Mathf.Abs(velocity.x));
+                animator.SetFloat("walk", Mathf.Abs(velocity.x));
+                if (respawnAtLastGround)
+                    lastGrounded = transform.position-(Vector3)velocity*.2f;
+            }
         }
         if (moveDir.x != 0) sr.flipX = moveDir.x < 0;
         RaycastHit2D hit;
@@ -116,5 +131,14 @@ public class PlayerMovement : MonoBehaviour
             reserveDash = false;
             ground = new RaycastHit2D();
         }
+    }
+    public void Respawn()
+    {
+        transform.position = lastGrounded;
+        velocity = Vector2.zero;
+        BulletMode = false;
+        reserveDash = false;
+        defaultRender.SetActive(true);
+        DashRender.SetActive(false);
     }
 }
