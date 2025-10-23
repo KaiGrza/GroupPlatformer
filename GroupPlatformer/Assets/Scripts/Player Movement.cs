@@ -69,27 +69,36 @@ public class PlayerMovement : MonoBehaviour
             }
             return;
         }
+        transform.position += (Vector3)velocity * Time.deltaTime;
         ground = velocity.y > 0 ? new RaycastHit2D() : Physics2D.Raycast(transform.position, -Vector2.up, rect.height * .5f + .05f, (1 << 0) + (1 << 6));
         rect.center = transform.position;
+        Vector2[] searchLoc = new Vector2[] { new Vector2(rect.center.x, rect.yMin), new Vector2(rect.xMax, rect.center.y), new Vector2(rect.center.x, rect.yMax), new Vector2(rect.xMin, rect.center.y) };
         foreach (Collider2D col in Physics2D.OverlapAreaAll(new Vector2(rect.xMin, rect.yMin), new Vector2(rect.xMax, rect.yMax)))
         {
-            Vector2 dir = col.ClosestPoint(transform.position) - (Vector2)transform.position;
-            float dist = dir.magnitude - CastInsideRect(dir, rect);
-            transform.position += (Vector3)dir.normalized * Mathf.Min(0, dist);
-
-            if (!ground && Vector2.Dot(dir, Vector2.up) < -.5f)
-                ground = Physics2D.Raycast(transform.position, dir, dir.magnitude + .05f, (1 << 0) +(1 << 6));
-            if (Vector2.Dot(dir, velocity) > 0)
+            float dist = 2f;
+            Vector2 dir = Vector2.zero;
+            for (int l = 0; l < 4; l++)
             {
-                dir = Vector2.Perpendicular(TurnCardinal(- dir)).normalized;
-                dir = dir * Vector2.Dot(velocity, dir);
-                velocity = dir;// + (dir-velocity)*.1;
-            }
+                dir = col.ClosestPoint(searchLoc[l]) - (Vector2)transform.position;
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, dir.normalized, dir.magnitude+0.05f, (1 << 0) + (1 << 6));
+                dir = dir.normalized * hit.distance;
+                Debug.DrawLine(transform.position,hit.point, Color.yellow);
+                dist = dir.magnitude - CastInsideRect(dir, rect);
+                transform.position += (Vector3)dir.normalized * Mathf.Min(0, dist);
 
-            if (dist > 0 && col.gameObject.tag == "Hazard")
-                Respawn();
+                if (!ground && Vector2.Dot(hit.normal, Vector2.up) > .5f)
+                    ground = Physics2D.Raycast(transform.position, dir, dir.magnitude + .05f, (1 << 0) + (1 << 6));
+                if (Vector2.Dot(hit.normal, velocity) <0 && dist < 0f)
+                {
+                    dir = Vector2.Perpendicular(hit.normal);
+                    dir = dir * Vector2.Dot(velocity, dir);
+                    velocity = dir;// + (dir-velocity)*.1;
+                }
+
+                if (dist < 0 && col.gameObject.tag == "Hazard")
+                    Respawn();
+            }
         }
-        transform.position += (Vector3)velocity * Time.deltaTime;
     }
     void Update()
     {
