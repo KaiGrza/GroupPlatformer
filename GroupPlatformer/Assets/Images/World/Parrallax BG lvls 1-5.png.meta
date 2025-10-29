@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 10
+  spritePixelsToUnits: 50
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -101,9 +101,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 200
-        width: 150
-        height: 100
+        y: 1000
+        width: 750
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,10 +121,10 @@ TextureImporter:
       name: Parrallax BG lvls 1-5_1
       rect:
         serializedVersion: 2
-        x: 150
-        y: 200
-        width: 150
-        height: 100
+        x: 750
+        y: 1000
+        width: 750
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,9 +143,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 100
-        width: 150
-        height: 100
+        y: 500
+        width: 750
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,10 +163,10 @@ TextureImporter:
       name: Parrallax BG lvls 1-5_3
       rect:
         serializedVersion: 2
-        x: 150
-        y: 100
-        width: 150
-        height: 100
+        x: 750
+        y: 500
+        width: 750
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -186,8 +186,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 150
-        height: 100
+        width: 750
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,6 +197,27 @@ TextureImporter:
       bones: []
       spriteID: daed262c0b7fe8942946cac942ac7213
       internalID: 1108229359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Parrallax BG lvls 1-5_5
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 0
+        width: 750
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81b6ad27451627645a7a6816381cfcc9
+      internalID: -96452090
       vertices: []
       indices: 
       edges: []
@@ -217,6 +238,7 @@ TextureImporter:
       Parrallax BG lvls 1-5_2: 1786326944
       Parrallax BG lvls 1-5_3: 852662184
       Parrallax BG lvls 1-5_4: 1108229359
+      Parrallax BG lvls 1-5_5: -96452090
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
