@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 021c7b36c69f06e498f1759836fcdc95
+guid: 66be975aeb217074a99ebe5006e4eefe
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TheDiamond_0
+      name: Damaged Diamond_0
       rect:
         serializedVersion: 2
         x: 0
@@ -111,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b100c33c24ade6847a5f7ed155fe693f
-      internalID: -1636703213
+      spriteID: 0305e1634b25c7e4b92e0e9222012ab4
+      internalID: -535884543
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TheDiamond_1
+      name: Damaged Diamond_1
       rect:
         serializedVersion: 2
         x: 32
@@ -132,14 +132,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a85bdb57a085e504baea96ad50142d01
-      internalID: -907138462
+      spriteID: f14b9f48982bb4541bd62752a6ab32e7
+      internalID: 1194585325
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TheDiamond_2
+      name: Damaged Diamond_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93313613d1544fc4d961549adbe24c8a
+      internalID: -804561156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Damaged Diamond_3
       rect:
         serializedVersion: 2
         x: 0
@@ -153,14 +174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22311472f6215414ebffab04cffce654
-      internalID: -221786785
+      spriteID: e43e7eff38592e14dbbc3bb407dc4b7b
+      internalID: 1608656172
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TheDiamond_3
+      name: Damaged Diamond_4
       rect:
         serializedVersion: 2
         x: 32
@@ -174,14 +195,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63ef16d4bfe7081478c04518dbb14f05
-      internalID: 300665459
+      spriteID: ed1c4a3d5a0169045bc8dd856f1b8f08
+      internalID: -1980941060
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TheDiamond_4
+      name: Damaged Diamond_5
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8be840a768df0e74189881a31b4f0fef
+      internalID: 154721066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Damaged Diamond_6
       rect:
         serializedVersion: 2
         x: 0
@@ -195,8 +237,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c282c5b103642dd4ba80f85872e0e31e
-      internalID: 402935660
+      spriteID: 15b4ab8865cdbbc40b0244638123055e
+      internalID: 1220334827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Damaged Diamond_7
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ff5c536fa9235440865761293fa2d47
+      internalID: -2009031238
       vertices: []
       indices: 
       edges: []
@@ -212,11 +275,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TheDiamond_0: -1636703213
-      TheDiamond_1: -907138462
-      TheDiamond_2: -221786785
-      TheDiamond_3: 300665459
-      TheDiamond_4: 402935660
+      Damaged Diamond_0: -535884543
+      Damaged Diamond_1: 1194585325
+      Damaged Diamond_2: -804561156
+      Damaged Diamond_3: 1608656172
+      Damaged Diamond_4: -1980941060
+      Damaged Diamond_5: 154721066
+      Damaged Diamond_6: 1220334827
+      Damaged Diamond_7: -2009031238
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
