@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
                 dist = dir.magnitude - CastInsideRect(dir, rect);
                 transform.position += (Vector3)dir.normalized * Mathf.Min(0, dist);
 
-                if (!ground && Vector2.Dot(hit.normal, Vector2.up) > .5f)
+                if (!ground && Vector2.Dot(hit.normal, Vector2.up) > .5f&&dist<0f && col.gameObject.tag != "Hazard")
                     ground = Physics2D.Raycast(transform.position, dir, dir.magnitude + .05f, (1 << 0) + (1 << 6));
                 if (Vector2.Dot(hit.normal, velocity) <0 && dist < 0f)
                 {
@@ -132,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (moveDir.x != 0) sr.flipX = moveDir.x < 0;
         RaycastHit2D hit;
-        if (reserveDash &&Input.GetKeyDown(KeyCode.Space) && moveDir.magnitude != 0 && (hit = Physics2D.Raycast(transform.position, TurnCardinal(moveDir), 100, 1 << 0)))
+        if (reserveDash &&Input.GetKeyDown(KeyCode.Space) && moveDir.magnitude != 0 && (hit = Physics2D.BoxCast(transform.position,rect.size*.5f,0f, TurnCardinal(moveDir), 100, 1 << 0)))
         {
             BulletMode = true;
             defaultRender.SetActive(false);
