@@ -132,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (moveDir.x != 0) sr.flipX = moveDir.x < 0;
         RaycastHit2D hit;
-        if (reserveDash &&Input.GetKeyDown(KeyCode.Space) && moveDir.magnitude != 0 && (hit = Physics2D.Raycast(transform.position, TurnCardinal(moveDir), 100, 1 << 0)))
+        if (reserveDash &&Input.GetKeyDown(KeyCode.Space) && moveDir.magnitude != 0 && (hit = Physics2D.BoxCast(transform.position,rect.size*.5f,0f, TurnCardinal(moveDir), 100, 1 << 0)))
         {
             BulletMode = true;
             defaultRender.SetActive(false);
