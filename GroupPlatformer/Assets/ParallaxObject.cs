@@ -8,10 +8,10 @@ public class ParallaxObject : MonoBehaviour
     private void Start()
     {
         guys = new List<Transform>();
-        foreach (Transform t in transform)
+        while(transform.childCount>0)
         {
-            guys.Add(t);
-            t.SetParent(Camera.main.transform, true);
+            guys.Add(transform.GetChild(0));
+            transform.GetChild(0).SetParent(Camera.main.transform, true);
         }
     }
     List<Transform> guys;
