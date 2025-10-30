@@ -101,7 +101,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3
-        y: 105
+        y: 247
         width: 41
         height: 101
       alignment: 9
@@ -122,7 +122,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 54
-        y: 105
+        y: 247
         width: 40
         height: 103
       alignment: 0
@@ -143,7 +143,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 104
-        y: 105
+        y: 248
         width: 40
         height: 101
       alignment: 0
@@ -164,7 +164,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 154
-        y: 105
+        y: 247
         width: 40
         height: 103
       alignment: 0
@@ -185,7 +185,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 195
-        y: 105
+        y: 247
         width: 38
         height: 101
       alignment: 9
@@ -206,7 +206,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 234
-        y: 105
+        y: 247
         width: 48
         height: 102
       alignment: 0
@@ -227,7 +227,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 4
-        y: 0
+        y: 142
         width: 40
         height: 101
       alignment: 0
@@ -248,7 +248,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 54
-        y: 0
+        y: 142
         width: 40
         height: 103
       alignment: 0
@@ -269,7 +269,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 104
-        y: 0
+        y: 142
         width: 40
         height: 101
       alignment: 0
@@ -290,7 +290,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 147
-        y: 1
+        y: 143
         width: 72
         height: 100
       alignment: 9
@@ -311,7 +311,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 224
-        y: 0
+        y: 142
         width: 49
         height: 102
       alignment: 0
@@ -327,6 +327,216 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: CharacterMain_Damage
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 224
+        width: 129
+        height: 128
+      alignment: 9
+      pivot: {x: 0.4791487, y: 0.42194724}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6106c1aee4751974e8588d0904be9593
+      internalID: -24447418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CharacterMain_Fall
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 240
+        width: 83
+        height: 112
+      alignment: 9
+      pivot: {x: 0.4953705, y: 0.45539856}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f4005eb3b10c554c80896b4026caf09
+      internalID: 1385428170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CharacterMain_Spin0
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 148
+        width: 68
+        height: 66
+      alignment: 9
+      pivot: {x: 0.5113014, y: 0.639731}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8bc6e5da39ecd8499ad2da2dcccabe8
+      internalID: 778297344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CharacterMain_Spin1
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 153
+        width: 56
+        height: 63
+      alignment: 9
+      pivot: {x: 0.55489403, y: 0.347516}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f7600b9309ca35479c9a9f28f0e7631
+      internalID: 723799631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CharacterMain_HeadBonk
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 37
+        width: 83
+        height: 106
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21f3d08cb9cd416469a7f8e8b13b41e7
+      internalID: 1555997492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CharacterMain_DashUp
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 8
+        width: 56
+        height: 133
+      alignment: 9
+      pivot: {x: 0.50686157, y: 0.56645095}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fb4974ac3c60974a8b841e0ec2d658b
+      internalID: 865810474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CharacterMain_Charge3
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 0
+        width: 66
+        height: 142
+      alignment: 9
+      pivot: {x: 0.5232886, y: 0.35657904}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b61af04c17bbc64382b87d87fcdcaf7
+      internalID: -786613272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CharacterMain_Charge2
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 23
+        width: 66
+        height: 119
+      alignment: 9
+      pivot: {x: 0.52911055, y: 0.42573136}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8bd15e33813e0643aed5a89a0e2d4dc
+      internalID: 1055745037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CharacterMain_Charge1
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 22
+        width: 66
+        height: 120
+      alignment: 9
+      pivot: {x: 0.52328837, y: 0.42695895}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eed162e1f7ecfba4baae910485da05a0
+      internalID: -1157070274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CharacterMain_Charge0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 22
+        width: 66
+        height: 118
+      alignment: 9
+      pivot: {x: 0.5232885, y: 0.42835832}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a64c739fda96cf409d48145fc8741c4
+      internalID: 1389934011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -338,14 +548,24 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      CharacterMain_Charge0: 1389934011
+      CharacterMain_Charge1: -1157070274
+      CharacterMain_Charge2: 1055745037
+      CharacterMain_Charge3: -786613272
+      CharacterMain_Damage: -24447418
       CharacterMain_Dash: -255135944
+      CharacterMain_DashUp: 865810474
+      CharacterMain_Fall: 1385428170
       CharacterMain_Front0: -291270842
       CharacterMain_Front1: 440063577
+      CharacterMain_HeadBonk: 1555997492
       CharacterMain_IdleBlink: -1810588368
       CharacterMain_Left0: 146873972
       CharacterMain_Left1: -1253662247
       CharacterMain_Right0: -293281579
       CharacterMain_Right1: 1210926906
+      CharacterMain_Spin0: 778297344
+      CharacterMain_Spin1: 723799631
       CharacterMain_Walk0: -1545643222
       CharacterMain_Walk1: 1868916304
       CharacterMain_Walk2: -2142769189
