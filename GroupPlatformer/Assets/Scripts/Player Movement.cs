@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public SpriteRenderer sr;
     Vector3 lastGrounded = Vector3.zero;
     public bool respawnAtLastGround = true;
+    float dte = -10f;
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0f,1f,0.3f,0.1f);
@@ -41,8 +42,15 @@ public class PlayerMovement : MonoBehaviour
     {
         return Mathf.Abs(dir.x) > Mathf.Abs(dir.y) ? Vector2.right * Mathf.Sign(dir.x): Vector2.up * Mathf.Sign(dir.y);
     }
+    public void Die()
+    {
+        if (dte < -10) return;
+        dte = 0;
+        animator.SetTrigger("Die");
+    }
     private void FixedUpdate()
     {
+        if (dte >= 0f) return;
         if (BulletMode)
         {
             Vector3 dir = Vector3.ClampMagnitude(bulletTarget - transform.position, Time.deltaTime * 100f);
@@ -95,12 +103,21 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 if (dist < 0 && col.gameObject.tag == "Hazard")
-                    Respawn();
+                    Die();
             }
         }
     }
     void Update()
     {
+        if(dte>=0)
+        {
+            dte += Time.deltaTime;
+            if (dte > 1f)
+                Respawn();
+            return;
+        }
+        if(dte<-10)
+            dte += Time.deltaTime;
         if (BulletMode) return;
         Vector2 moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         animator.SetBool("OnGround", ground);
@@ -117,8 +134,9 @@ public class PlayerMovement : MonoBehaviour
         {
             if(ground.collider.gameObject.tag=="Hazard")
             {
-                Respawn();
-            }else
+                Die(); ground = new RaycastHit2D();
+            }
+            else
             {
                 if (!Input.GetKey(KeyCode.Space))
                     velocity += Vector2.right * moveDir.x * Time.deltaTime * moveSpeed;
@@ -155,5 +173,6 @@ public class PlayerMovement : MonoBehaviour
         BulletMode = false;
         reserveDash = false;
         DashRender.SetActive(false);
+        dte = -10.4f;
     }
 }
