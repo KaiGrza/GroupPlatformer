@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 lastGrounded = Vector3.zero;
     public bool respawnAtLastGround = true;
     float dte = -10f;
+    public static byte TotalPickups = 0;
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0f,1f,0.3f,0.1f);
@@ -67,7 +68,14 @@ public class PlayerMovement : MonoBehaviour
             animator.SetTrigger("DashEnd");
                 }
             }
-            if (bte > .2f)
+            foreach (Collider2D col in Physics2D.OverlapCircleAll((Vector2)transform.position, .5f,(1 << 7)))
+            {
+                if (col.gameObject.tag == "Finish")
+                {
+                    col.gameObject.GetComponent<OnPlayerCollide>().onCollide.Invoke();
+                }
+            }
+             if (bte > .2f)
             {
                 BulletMode = false;
                 bte = 0f;
@@ -80,31 +88,38 @@ public class PlayerMovement : MonoBehaviour
         ground = velocity.y > 0 ? new RaycastHit2D() : Physics2D.Raycast(transform.position, -Vector2.up, rect.height * .5f + .05f, (1 << 0) + (1 << 6));
         rect.center = transform.position;
         Vector2[] searchLoc = new Vector2[] { new Vector2(rect.center.x, rect.yMin), new Vector2(rect.xMax, rect.center.y), new Vector2(rect.center.x, rect.yMax), new Vector2(rect.xMin, rect.center.y) };
-        foreach (Collider2D col in Physics2D.OverlapAreaAll(new Vector2(rect.xMin, rect.yMin), new Vector2(rect.xMax, rect.yMax)))
+        foreach (Collider2D col in Physics2D.OverlapAreaAll(new Vector2(rect.xMin, rect.yMin), new Vector2(rect.xMax, rect.yMax), (1 << 0) + (3 << 6)))
         {
-            float dist = 2f;
-            Vector2 dir = Vector2.zero;
-            for (int l = 0; l < 4; l++)
+            if(col.gameObject.tag=="Finish")
             {
-                dir = col.ClosestPoint(searchLoc[l]) - (Vector2)transform.position;
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, dir.normalized, dir.magnitude+0.05f, (1 << 0) + (1 << 6));
-                dir = dir.normalized * hit.distance;
-                Debug.DrawLine(transform.position,hit.point, Color.yellow);
-                dist = dir.magnitude - CastInsideRect(dir, rect);
-                transform.position += (Vector3)dir.normalized * Mathf.Min(0, dist);
-
-                if (!ground && Vector2.Dot(hit.normal, Vector2.up) > .5f&&dist<0f && col.gameObject.tag != "Hazard")
-                    ground = Physics2D.Raycast(transform.position, dir, dir.magnitude + .05f, (1 << 0) + (1 << 6));
-                if (Vector2.Dot(hit.normal, velocity) <0 && dist < 0f)
+                col.gameObject.GetComponent<OnPlayerCollide>().onCollide.Invoke();
+            }else
+            {
+                float dist = 2f;
+                Vector2 dir = Vector2.zero;
+                for (int l = 0; l < 4; l++)
                 {
-                    dir = Vector2.Perpendicular(hit.normal);
-                    dir = dir * Vector2.Dot(velocity, dir);
-                    velocity = dir;// + (dir-velocity)*.1;
-                }
+                    dir = col.ClosestPoint(searchLoc[l]) - (Vector2)transform.position;
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position, dir.normalized, dir.magnitude + 0.05f, (1 << 0) + (1 << 6));
+                    dir = dir.normalized * hit.distance;
+                    Debug.DrawLine(transform.position, hit.point, Color.yellow);
+                    dist = dir.magnitude - CastInsideRect(dir, rect);
+                    transform.position += (Vector3)dir.normalized * Mathf.Min(0, dist);
 
-                if (dist < 0 && col.gameObject.tag == "Hazard")
-                    Die();
+                    if (!ground && Vector2.Dot(hit.normal, Vector2.up) > .5f && dist < 0f && col.gameObject.tag != "Hazard")
+                        ground = Physics2D.Raycast(transform.position, dir, dir.magnitude + .05f, (1 << 0) + (1 << 6));
+                    if (Vector2.Dot(hit.normal, velocity) < 0 && dist < 0f)
+                    {
+                        dir = Vector2.Perpendicular(hit.normal);
+                        dir = dir * Vector2.Dot(velocity, dir);
+                        velocity = dir;// + (dir-velocity)*.1;
+                    }
+
+                    if (dist < 0 && col.gameObject.tag == "Hazard")
+                        Die();
+                }
             }
+            
         }
     }
     void Update()
