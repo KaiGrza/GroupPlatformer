@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
             camTargetSize = points[closest].OrthSize;
         }
         Camera.main.transform.position = Vector3.Lerp((Vector3)camTarget - Vector3.forward * 10,Camera.main.transform.position,Mathf.Pow(0.1f,Time.deltaTime));
-        Camera.main.transform.position = (Vector3)Vector2.ClampMagnitude((Vector2)(Camera.main.transform.position-PlayerMovement.main.transform.position),Camera.main.orthographicSize*2-.25f)+PlayerMovement.main.transform.position - Vector3.forward * 10;
+        Camera.main.transform.position = (Vector3)Vector2.Scale(Vector2.ClampMagnitude(Vector2.Scale((Vector2)(Camera.main.transform.position-PlayerMovement.main.transform.position),new Vector2((float)Screen.height/Screen.width,1f)),Camera.main.orthographicSize-.25f), new Vector2((float)Screen.width / Screen.height, 1f)) + PlayerMovement.main.transform.position - Vector3.forward * 10;
         Camera.main.orthographicSize = Mathf.Lerp(camTargetSize,Camera.main.orthographicSize,Mathf.Pow(0.05f,Time.deltaTime));
     }
 }

@@ -15,13 +15,13 @@ public class PlayerMovement : MonoBehaviour
     bool reserveDash;
     public Vector3 bulletTarget;
     float bte = 0f;
-    public GameObject defaultRender;
     public GameObject DashRender;
     public ParticleSystem onHitWallEffect;
     public Animator animator;
     public SpriteRenderer sr;
     Vector3 lastGrounded = Vector3.zero;
     public bool respawnAtLastGround = true;
+    float dte = -10f;
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0f,1f,0.3f,0.1f);
@@ -42,8 +42,15 @@ public class PlayerMovement : MonoBehaviour
     {
         return Mathf.Abs(dir.x) > Mathf.Abs(dir.y) ? Vector2.right * Mathf.Sign(dir.x): Vector2.up * Mathf.Sign(dir.y);
     }
+    public void Die()
+    {
+        if (dte < -10) return;
+        dte = 0;
+        animator.SetTrigger("Die");
+    }
     private void FixedUpdate()
     {
+        if (dte >= 0f) return;
         if (BulletMode)
         {
             Vector3 dir = Vector3.ClampMagnitude(bulletTarget - transform.position, Time.deltaTime * 100f);
@@ -53,11 +60,11 @@ public class PlayerMovement : MonoBehaviour
                 bte += Time.deltaTime;
                 if(DashRender.activeInHierarchy)
                 {
-                    defaultRender.SetActive(true);
                     DashRender.SetActive(false);
                     onHitWallEffect.transform.position = bulletTarget;
                     onHitWallEffect.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
                     onHitWallEffect.Play();
+            animator.SetTrigger("DashEnd");
                 }
             }
             if (bte > .2f)
@@ -96,15 +103,26 @@ public class PlayerMovement : MonoBehaviour
                 }
 
                 if (dist < 0 && col.gameObject.tag == "Hazard")
-                    Respawn();
+                    Die();
             }
         }
     }
     void Update()
     {
+        if(dte>=0)
+        {
+            dte += Time.deltaTime;
+            if (dte > .9f)
+                Respawn();
+            return;
+        }
+        if(dte<-10)
+            dte += Time.deltaTime;
         if (BulletMode) return;
         Vector2 moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        if(!ground)
+        animator.SetBool("OnGround", ground);
+
+        if (!ground)
         {
             velocity += Physics2D.gravity * Time.deltaTime;
             velocity += Vector2.right * moveDir.x * Time.deltaTime * 10f;
@@ -116,8 +134,9 @@ public class PlayerMovement : MonoBehaviour
         {
             if(ground.collider.gameObject.tag=="Hazard")
             {
-                Respawn();
-            }else
+                Die(); ground = new RaycastHit2D();
+            }
+            else
             {
                 if (!Input.GetKey(KeyCode.Space))
                     velocity += Vector2.right * moveDir.x * Time.deltaTime * moveSpeed;
@@ -131,16 +150,20 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         if (moveDir.x != 0) sr.flipX = moveDir.x < 0;
+        animator.SetBool("ChargingDash", reserveDash && ground && Input.GetKey(KeyCode.Space));
+
         RaycastHit2D hit;
-        if (reserveDash &&Input.GetKeyDown(KeyCode.Space) && moveDir.magnitude != 0 && (hit = Physics2D.BoxCast(transform.position,rect.size*.5f,0f, TurnCardinal(moveDir), 100, 1 << 0)))
+        if (reserveDash &&Input.GetKeyUp(KeyCode.Space) && moveDir.magnitude != 0 && (hit = Physics2D.BoxCast(transform.position,rect.size*.5f,0f, TurnCardinal(moveDir), 100, 1 << 0))&&hit.distance>rect.height)
         {
             BulletMode = true;
-            defaultRender.SetActive(false);
             DashRender.SetActive(true);
-            bulletTarget = hit.point + hit.normal * CastInsideRect(hit.normal,rect);
+            bulletTarget = hit.distance * TurnCardinal(moveDir).normalized + (Vector2)transform.position + .5f*hit.normal * CastInsideRect(hit.normal,rect);
             velocity = Vector2.zero;
             reserveDash = false;
             ground = new RaycastHit2D();
+            animator.SetBool("OnGround", false);
+            animator.SetTrigger(TurnCardinal(moveDir).y<=0?"Dash":"DashUp");
+            animator.SetBool("ChargingDash", false);
         }
     }
     public void Respawn()
@@ -149,7 +172,7 @@ public class PlayerMovement : MonoBehaviour
         velocity = Vector2.zero;
         BulletMode = false;
         reserveDash = false;
-        defaultRender.SetActive(true);
         DashRender.SetActive(false);
+        dte = -10.4f;
     }
 }
