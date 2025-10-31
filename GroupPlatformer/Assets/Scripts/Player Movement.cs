@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
                     onHitWallEffect.transform.position = bulletTarget;
                     onHitWallEffect.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
                     onHitWallEffect.Play();
+            animator.SetTrigger("DashEnd");
                 }
             }
             if (bte > .2f)
@@ -134,16 +135,16 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("ChargingDash", reserveDash && ground && Input.GetKey(KeyCode.Space));
 
         RaycastHit2D hit;
-        if (reserveDash &&Input.GetKeyUp(KeyCode.Space) && moveDir.magnitude != 0 && (hit = Physics2D.BoxCast(transform.position,rect.size*.5f,0f, TurnCardinal(moveDir), 100, 1 << 0)))
+        if (reserveDash &&Input.GetKeyUp(KeyCode.Space) && moveDir.magnitude != 0 && (hit = Physics2D.BoxCast(transform.position,rect.size*.5f,0f, TurnCardinal(moveDir), 100, 1 << 0))&&hit.distance>rect.height)
         {
             BulletMode = true;
             DashRender.SetActive(true);
-            bulletTarget = hit.point + hit.normal * CastInsideRect(hit.normal,rect);
+            bulletTarget = hit.distance * TurnCardinal(moveDir).normalized + (Vector2)transform.position + .5f*hit.normal * CastInsideRect(hit.normal,rect);
             velocity = Vector2.zero;
             reserveDash = false;
             ground = new RaycastHit2D();
             animator.SetBool("OnGround", false);
-            animator.SetTrigger(TurnCardinal(moveDir).x==0?"DashUp":"Dash");
+            animator.SetTrigger(TurnCardinal(moveDir).y<=0?"Dash":"DashUp");
             animator.SetBool("ChargingDash", false);
         }
     }
