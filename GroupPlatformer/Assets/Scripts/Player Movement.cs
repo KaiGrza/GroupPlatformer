@@ -112,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
         if(dte>=0)
         {
             dte += Time.deltaTime;
-            if (dte > 1f)
+            if (dte > .9f)
                 Respawn();
             return;
         }
