@@ -171,7 +171,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("ChargingDash", chargingDash && ground);
         ArrowHolder.SetActive(chargingDash);
         if(moveDir.sqrMagnitude>0f)
-        ArrowHolder.transform.localRotation = Quaternion.Lerp( Quaternion.Euler(0, 0, Mathf.Atan2(TurnCardinal(moveDir).y, TurnCardinal(moveDir).x) * Mathf.Rad2Deg - 90f), ArrowHolder.transform.localRotation,Mathf.Pow(0.001f,Time.deltaTime));
+        ArrowHolder.transform.localRotation = Quaternion.Lerp( Quaternion.Euler(0, 0, Mathf.Atan2(TurnCardinal(moveDir).y, TurnCardinal(moveDir).x) * Mathf.Rad2Deg - 90f), ArrowHolder.transform.localRotation,Mathf.Pow(0.001f,Time.deltaTime*4));
         RaycastHit2D hit;
         if (reserveDash &&Input.GetKeyUp(KeyCode.Space) && moveDir.magnitude != 0 && (hit = Physics2D.BoxCast(transform.position,rect.size*.5f,0f, TurnCardinal(moveDir), 100, 1 << 0))&&hit.distance>rect.height)
         {
