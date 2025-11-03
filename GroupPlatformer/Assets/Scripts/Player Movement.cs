@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public bool respawnAtLastGround = true;
     float dte = -10f;
     public static byte TotalPickups = 0;
+    public GameObject ArrowHolder;
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0f,1f,0.3f,0.1f);
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public static float CastInsideRect(Vector3 dir,Rect rect)
     {
+        if (dir.x == 0 && dir.y == 0) return 0f;
         return Mathf.Min(Mathf.Abs(dir.normalized.x == 0 ? 100 : rect.size.x * 0.5f / dir.normalized.x), Mathf.Abs(dir.normalized.y == 0 ? 100 : rect.size.y * 0.5f / dir.normalized.y));
     }
     public static Vector2 TurnCardinal(Vector2 dir)
@@ -104,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
                     dir = dir.normalized * hit.distance;
                     Debug.DrawLine(transform.position, hit.point, Color.yellow);
                     dist = dir.magnitude - CastInsideRect(dir, rect);
-                    transform.position += (Vector3)dir.normalized * Mathf.Min(0, dist);
+                    transform.position += (Vector3)TurnCardinal(dir).normalized * Mathf.Min(0, dist);
 
                     if (!ground && Vector2.Dot(hit.normal, Vector2.up) > .5f && dist < 0f && col.gameObject.tag != "Hazard")
                         ground = Physics2D.Raycast(transform.position, dir, dir.magnitude + .05f, (1 << 0) + (1 << 6));
@@ -112,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         dir = Vector2.Perpendicular(hit.normal);
                         dir = dir * Vector2.Dot(velocity, dir);
-                        velocity = dir;// + (dir-velocity)*.1;
+                        velocity = dir;// + (dir-velocity)*.1f;
                     }
 
                     if (dist < 0 && col.gameObject.tag == "Hazard")
@@ -136,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
         if (BulletMode) return;
         Vector2 moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         animator.SetBool("OnGround", ground);
+        bool chargingDash = reserveDash && Input.GetKey(KeyCode.Space);
 
         if (!ground)
         {
@@ -143,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
             velocity += Vector2.right * moveDir.x * Time.deltaTime * 10f;
             velocity.x*= Mathf.Pow(0.3f, Time.deltaTime);
             animator.SetFloat("walk", 0);
-
+            if (chargingDash) velocity = Vector2.ClampMagnitude(velocity*Mathf.Pow(0.02f, Time.deltaTime),1f);
         }
         else
         {
@@ -153,10 +156,10 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                if (!Input.GetKey(KeyCode.Space))
+                if (!chargingDash)
                     velocity += Vector2.right * moveDir.x * Time.deltaTime * moveSpeed;
                 velocity *= Mathf.Pow(0.00001f, Time.deltaTime);
-                velocity.y = 0;
+                velocity.y = -1;
                 reserveDash = true;
 
                 animator.SetFloat("walk", Mathf.Abs(velocity.x));
@@ -165,8 +168,10 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         if (moveDir.x != 0) sr.flipX = moveDir.x < 0;
-        animator.SetBool("ChargingDash", reserveDash && ground && Input.GetKey(KeyCode.Space));
-
+        animator.SetBool("ChargingDash", chargingDash && ground);
+        ArrowHolder.SetActive(chargingDash);
+        if(moveDir.sqrMagnitude>0f)
+        ArrowHolder.transform.localRotation = Quaternion.Lerp( Quaternion.Euler(0, 0, Mathf.Atan2(TurnCardinal(moveDir).y, TurnCardinal(moveDir).x) * Mathf.Rad2Deg - 90f), ArrowHolder.transform.localRotation,Mathf.Pow(0.001f,Time.deltaTime));
         RaycastHit2D hit;
         if (reserveDash &&Input.GetKeyUp(KeyCode.Space) && moveDir.magnitude != 0 && (hit = Physics2D.BoxCast(transform.position,rect.size*.5f,0f, TurnCardinal(moveDir), 100, 1 << 0))&&hit.distance>rect.height)
         {
