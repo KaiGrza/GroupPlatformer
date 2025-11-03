@@ -153,7 +153,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("ChargingDash", reserveDash && ground && Input.GetKey(KeyCode.Space));
 
         RaycastHit2D hit;
-        if (reserveDash &&Input.GetKeyUp(KeyCode.Space) && moveDir.magnitude != 0 && (hit = Physics2D.BoxCast(transform.position,rect.size*.5f,0f, TurnCardinal(moveDir), 100, 1 << 0))&&hit.distance>rect.height)
+        if (reserveDash &&Input.GetKeyUp(KeyCode.Space) && moveDir.magnitude != 0 && (hit = Physics2D.BoxCast(transform.position,rect.size*.5f,0f, TurnCardinal(moveDir), Mathf.Infinity, 1 << 0))&&hit.distance>rect.height)
         {
             BulletMode = true;
             DashRender.SetActive(true);
