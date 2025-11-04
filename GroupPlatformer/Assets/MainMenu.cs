@@ -12,4 +12,8 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+    public void SetPickupCount(int amt)
+    {
+        PlayerMovement.TotalPickups = (byte)amt;
+    }
 }

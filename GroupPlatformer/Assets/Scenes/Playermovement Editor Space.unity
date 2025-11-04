@@ -1665,6 +1665,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1596190976 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7875933992807150197, guid: 57b449380a2c2d64fb36c1c0529c9e75, type: 3}
+  m_PrefabInstance: {fileID: 7391690967604873324}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1613070956
 GameObject:
   m_ObjectHideFlags: 0
@@ -2387,6 +2392,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1171716366523207873, guid: 57b449380a2c2d64fb36c1c0529c9e75, type: 3}
+      propertyPath: ArrowHolder
+      value: 
+      objectReference: {fileID: 1596190976}
     - target: {fileID: 1556335034494931584, guid: 57b449380a2c2d64fb36c1c0529c9e75, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.49
@@ -2426,10 +2435,6 @@ PrefabInstance:
     - target: {fileID: 1556335034494931584, guid: 57b449380a2c2d64fb36c1c0529c9e75, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4414729158634780638, guid: 57b449380a2c2d64fb36c1c0529c9e75, type: 3}
-      propertyPath: m_SortingOrder
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

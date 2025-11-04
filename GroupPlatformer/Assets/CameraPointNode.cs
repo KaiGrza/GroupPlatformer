@@ -14,6 +14,7 @@ public class CameraPointNode : MonoBehaviour
         Gizmos.DrawCube(bounds.center, bounds.size);
     }
 }
+#if UNITY_EDITOR
 [CustomEditor(typeof(CameraPointNode))]
 public class CameraPointNodeEditor : Editor
 {
@@ -56,3 +57,4 @@ public class CameraPointNodeEditor : Editor
         }
     }
 }
+#endif
