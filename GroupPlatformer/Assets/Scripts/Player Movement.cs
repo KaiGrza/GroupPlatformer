@@ -51,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
         dte = 0;
         animator.SetTrigger("Die");
     }
+    BossEnemy damageOnEndDash = null;
     private void FixedUpdate()
     {
         if (dte >= 0f) return;
@@ -68,6 +69,15 @@ public class PlayerMovement : MonoBehaviour
                     onHitWallEffect.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
                     onHitWallEffect.Play();
             animator.SetTrigger("DashEnd");
+                    if(damageOnEndDash!=null)
+                    {
+                        damageOnEndDash.hit(dir);
+                        damageOnEndDash = null;
+                        velocity = -dir.normalized*10 + Vector3.up*4;
+                        sr.flipX = dir.x < 0;
+                        animator.SetTrigger("Backflip");
+
+                    }
                 }
             }
             foreach (Collider2D col in Physics2D.OverlapCircleAll((Vector2)transform.position, .5f,(1 << 7)))
@@ -184,6 +194,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("OnGround", false);
             animator.SetTrigger(TurnCardinal(moveDir).y<=0?"Dash":"DashUp");
             animator.SetBool("ChargingDash", false);
+            damageOnEndDash = hit.collider.gameObject.GetComponent<BossEnemy>();
         }
     }
     public void Respawn()
