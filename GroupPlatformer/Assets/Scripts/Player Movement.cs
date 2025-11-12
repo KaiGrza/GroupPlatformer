@@ -24,6 +24,14 @@ public class PlayerMovement : MonoBehaviour
     float dte = -10f;
     public static byte TotalPickups = 0;
     public GameObject ArrowHolder;
+    public GameObject PauseMenu;
+    public static bool gamePaused;
+    public void SetGamePaused(bool val)
+    {
+        gamePaused = val;
+        PauseMenu.SetActive(val);
+        Time.timeScale = val ? 0 : 1;
+    }
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0f,1f,0.3f,0.1f);
@@ -136,6 +144,9 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            SetGamePaused(!gamePaused);
+        if (gamePaused) return;
         if(dte>=0)
         {
             dte += Time.deltaTime;

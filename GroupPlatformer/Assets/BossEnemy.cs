@@ -38,7 +38,7 @@ public class BossEnemy : MonoBehaviour
             case 1: sheildDir = dir.x < 0 ? 3 : 1; break;
             default: break;
         }
-        if (animatorState <3 || Time.time-hte> (animatorState==3?0.167f:.417f))
+        if (animatorState <3 || Time.time-hte> (animatorState==3?0.167f:.833f))
         {
             if (animatorState == 4)
                 gameObject.SetActive(false);
