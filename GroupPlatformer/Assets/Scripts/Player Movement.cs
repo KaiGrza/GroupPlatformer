@@ -24,6 +24,14 @@ public class PlayerMovement : MonoBehaviour
     float dte = -10f;
     public static byte TotalPickups = 0;
     public GameObject ArrowHolder;
+    public GameObject PauseMenu;
+    public static bool gamePaused;
+    public void SetGamePaused(bool val)
+    {
+        gamePaused = val;
+        PauseMenu.SetActive(val);
+        Time.timeScale = val ? 0 : 1;
+    }
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0f,1f,0.3f,0.1f);
@@ -51,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
         dte = 0;
         animator.SetTrigger("Die");
     }
+    BossEnemy damageOnEndDash = null;
     private void FixedUpdate()
     {
         if (dte >= 0f) return;
@@ -68,6 +77,15 @@ public class PlayerMovement : MonoBehaviour
                     onHitWallEffect.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
                     onHitWallEffect.Play();
             animator.SetTrigger("DashEnd");
+                    if(damageOnEndDash!=null)
+                    {
+                        damageOnEndDash.hit(dir);
+                        damageOnEndDash = null;
+                        velocity = -dir.normalized*10 + Vector3.up*4;
+                        sr.flipX = dir.x < 0;
+                        animator.SetTrigger("Backflip");
+
+                    }
                 }
             }
             foreach (Collider2D col in Physics2D.OverlapCircleAll((Vector2)transform.position, .5f,(1 << 7)))
@@ -126,6 +144,9 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            SetGamePaused(!gamePaused);
+        if (gamePaused) return;
         if(dte>=0)
         {
             dte += Time.deltaTime;
@@ -184,6 +205,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("OnGround", false);
             animator.SetTrigger(TurnCardinal(moveDir).y<=0?"Dash":"DashUp");
             animator.SetBool("ChargingDash", false);
+            damageOnEndDash = hit.collider.gameObject.GetComponent<BossEnemy>();
         }
     }
     public void Respawn()
