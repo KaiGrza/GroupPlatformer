@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class BossEnemy : MonoBehaviour
@@ -12,6 +11,7 @@ public class BossEnemy : MonoBehaviour
     int sheildDir = 0;
     float hte = 0f;
     public Collider2D col;
+    public UnityEngine.Events.UnityEvent onDeath;
     public void hit(Vector2 dir)
     {
 
@@ -40,8 +40,8 @@ public class BossEnemy : MonoBehaviour
         }
         if (animatorState <3 || Time.time-hte> (animatorState==3?0.167f:.833f))
         {
-            if (animatorState == 4)
-                gameObject.SetActive(false);
+            if (animatorState == 4) onDeath.Invoke();
+
             animatorState = sheildDir==0?0:sheildDir==2?2:1;
         }
         if(lastAmstate!=animatorState)
