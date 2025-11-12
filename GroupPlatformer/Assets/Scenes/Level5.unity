@@ -2508,7 +2508,7 @@ MonoBehaviour:
   health: 3
   am: {fileID: 1568628552}
   sr: {fileID: 1568628553}
-  col: {fileID: 0}
+  col: {fileID: 1507604591}
 --- !u!1 &1537793232
 GameObject:
   m_ObjectHideFlags: 0
