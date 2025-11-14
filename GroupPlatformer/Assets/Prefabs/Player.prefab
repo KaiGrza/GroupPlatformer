@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1556335034494931584}
   - component: {fileID: 1171716366523207873}
-  m_Layer: 0
+  - component: {fileID: 3246444019987974860}
+  - component: {fileID: 3569378976811419114}
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -56,8 +58,7 @@ MonoBehaviour:
     y: 0
     width: 0.7
     height: 2
-  velocity: {x: 0, y: 0}
-  moveSpeed: 100
+  moveSpeed: 5
   BulletMode: 0
   bulletTarget: {x: 0, y: 0, z: 0}
   DashRender: {fileID: 1213207436249725428}
@@ -67,6 +68,80 @@ MonoBehaviour:
   respawnAtLastGround: 1
   ArrowHolder: {fileID: 7875933992807150197}
   PauseMenu: {fileID: 883100560834752173}
+  rb: {fileID: 3569378976811419114}
+  boxCollider: {fileID: 3246444019987974860}
+--- !u!61 &3246444019987974860
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430372062577652211}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: d6b3eabdc0f321d4fa6e0ce76513f1dc, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.7, y: 2}
+  m_EdgeRadius: 0
+--- !u!50 &3569378976811419114
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430372062577652211}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 1
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &506475057102219037
 GameObject:
   m_ObjectHideFlags: 0
@@ -79,7 +154,7 @@ GameObject:
   - component: {fileID: 3700546662727906924}
   - component: {fileID: 1007982258758977939}
   - component: {fileID: 9068947218352722611}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +286,7 @@ GameObject:
   - component: {fileID: 1342424711867767931}
   - component: {fileID: 4569376200122096567}
   - component: {fileID: 6727932791419065006}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: PauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +362,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4822441414585677550}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Blink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -322,7 +397,7 @@ GameObject:
   - component: {fileID: 6546395265318545620}
   - component: {fileID: 8552631789217202186}
   - component: {fileID: 8824563409706170616}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -456,7 +531,7 @@ GameObject:
   - component: {fileID: 8967328664496677973}
   - component: {fileID: 4728617914381771104}
   - component: {fileID: 8580930389516563970}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -589,7 +664,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8966091263250352282}
   - component: {fileID: 1025883399680828510}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -674,7 +749,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3603248616896703800}
   - component: {fileID: 442588975077433294}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -758,7 +833,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3984681899155968002}
   - component: {fileID: 7798039515017604055}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -842,7 +917,7 @@ GameObject:
   m_Component:
   - component: {fileID: 530836592764202362}
   - component: {fileID: 4414729158634780638}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Lightg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -926,7 +1001,7 @@ GameObject:
   m_Component:
   - component: {fileID: 509165776684717136}
   - component: {fileID: 1703035592536762882}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Square (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1012,7 +1087,7 @@ GameObject:
   - component: {fileID: 5444643566237163663}
   - component: {fileID: 4406995906076950785}
   - component: {fileID: 6159898962881786752}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Button (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1143,7 +1218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8209504769818824608}
   - component: {fileID: 909500591940956770}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1289,7 +1364,7 @@ GameObject:
   - component: {fileID: 6648048627340484236}
   - component: {fileID: 1074813751744277725}
   - component: {fileID: 7497947255724814270}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6179,7 +6254,7 @@ GameObject:
   - component: {fileID: 2380300377077741642}
   - component: {fileID: 7669814659642843350}
   - component: {fileID: 8260373521588444237}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6290,7 +6365,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8810016053109670677}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ArrowHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6325,7 +6400,7 @@ GameObject:
   - component: {fileID: 5001192351037732913}
   - component: {fileID: 5574455440957734917}
   - component: {fileID: 3311517341188926021}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6392,7 +6467,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8063470942678995027}
   - component: {fileID: 6718810057957448306}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Render
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6448,7 +6523,7 @@ GameObject:
   - component: {fileID: 830222578798852864}
   - component: {fileID: 922968761030103118}
   - component: {fileID: 1441531192723585280}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
