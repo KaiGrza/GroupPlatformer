@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
             if (points[i].bounds.Contains(playerPos) &&(closest==-1||(playerPos - points[i].pos).magnitude< (playerPos - points[closest].pos).magnitude))
                 closest = i;
         Vector2 camTarget = playerPos;
-        float camTargetSize = PlayerMovement.main.velocity.magnitude*.01f+4f;
+        float camTargetSize = PlayerMovement.main.rb.velocity.magnitude*.01f+4f;
         if (closest!=-1)
         {
             camTarget = points[closest].pos + (playerPos- points[closest].pos)*.05f;
